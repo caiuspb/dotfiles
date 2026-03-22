@@ -1,0 +1,96 @@
+add_newline = false
+format = """$directory$character"""
+palette = "catppuccin_mocha"
+
+right_format = """[](fg:surface0)[󰒋 $custom.host](bg:surface0 fg:text)[](fg:surface0)$git_branch$python$nodejs$golang$aws$time"""
+
+[custom.host]
+command = 'hostname -s'
+when = 'true'
+shell = ['sh']
+format = '$output'
+
+[character]
+vicmd_symbol = "[N] >>>"
+success_symbol = '[➜](bold green)'
+
+[directory]
+style = "bold lavender"
+
+[directory.substitutions]
+'~/tests/starship-custom' = 'work-project'
+
+[git_branch]
+symbol = " "
+format = '[](fg:mauve)[$symbol$branch(:$remote_branch)](bg:mauve fg:base)[](fg:mauve)'
+
+[python]
+disabled = false
+symbol = " "
+python_binary = ["python3", "python"]
+format = '[](fg:yellow)[${symbol}${pyenv_prefix}(${version})( \($virtualenv\))](bg:yellow fg:base)[](fg:yellow)'
+version_format = '${raw}'
+
+[nodejs]
+disabled = false
+symbol = " "
+format = '[](fg:green)[$symbol$version](bg:green fg:base)[](fg:green)'
+version_format = '${raw}'
+
+[golang]
+disabled = false
+symbol = " "
+format = '[](fg:teal)[$symbol$version](bg:teal fg:base)[](fg:teal)'
+version_format = '${raw}'
+
+[aws]
+disabled = false
+symbol = " "
+style = "bg:peach fg:base"
+format = '[](fg:peach)[$symbol$profile( $region)]($style)[](fg:peach)'
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "bg:blue fg:base"
+format = '[](fg:blue)[ $time]($style)[](fg:blue)'
+
+[kubernetes]
+symbol = '☸ '
+disabled = true
+detect_files = ['Dockerfile']
+format = '[$symbol$context( \($namespace\))]($style) '
+contexts = [
+  { context_pattern = "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer", style = "green", context_alias = "omerxx", symbol = " " },
+]
+
+[docker_context]
+disabled = true
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
