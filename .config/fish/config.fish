@@ -9,7 +9,7 @@ zoxide init fish | source
 #bind \e\[A history-search-backward
 #bind \e\[B history-search-forward
 
- alias l auf ls -ahl
+# alias l auf ls -ahl
 function l
     ls -ahl $argv
 end
