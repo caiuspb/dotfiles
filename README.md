@@ -17,7 +17,19 @@ cd ~/dotfiles
 
 ---
 
-## 2. Apply the Configuration with Stow
+## 2. Set Fish as Default Shell
+
+After installing `fish`, set it as your default shell:
+
+```bash
+chsh -s $(which fish)
+```
+
+Log out and back in (or restart your session) for the change to take effect.
+
+---
+
+## 3. Apply the Configuration with Stow
 
 From inside the repository, run:
 
@@ -29,7 +41,7 @@ This will create symbolic links from the repository into your home directory (e.
 
 ---
 
-## 3. Handling Existing Files
+## 4. Handling Existing Files
 
 If configuration files already exist on the system, `stow` will refuse to overwrite them.
 
@@ -60,7 +72,35 @@ This moves existing files into the repository and replaces them with symlinks.
 
 ---
 
-## 4. Verify Setup
+## 5. Install Fisher (Fish Plugin Manager)
+
+Start a fish shell:
+
+```bash
+fish
+```
+
+Then install **fisher**:
+
+```fish
+curl -sL https://git.io/fisher | source
+```
+
+---
+
+## 6. Install Fish Plugins
+
+Once `fisher` is installed, install all plugins defined in your dotfiles:
+
+```fish
+fisher update
+```
+
+This reads `~/.config/fish/fish_plugins` and installs everything automatically.
+
+---
+
+## 7. Verify Setup
 
 Check that symlinks were created correctly:
 
@@ -73,25 +113,17 @@ You should see links pointing to `~/dotfiles/...`.
 
 ---
 
-## 5. Post-Setup Notes
+## 8. Post-Setup
 
-* Restart your shell:
+Restart your shell:
 
-  ```bash
-  exec fish
-  ```
-
-* Ensure required tools are available (e.g. `fish`, `starship`, `zoxide`, etc.)
-
-* If using `fish`, plugins can be installed with:
-
-  ```fish
-  fisher update
-  ```
+```bash
+exec fish
+```
 
 ---
 
-## 6. Updating Dotfiles
+## 9. Updating Dotfiles
 
 To update your configuration on any system:
 
@@ -103,7 +135,7 @@ stow .
 
 ---
 
-## 7. Structure
+## 10. Structure
 
 Example layout:
 
@@ -118,10 +150,11 @@ dotfiles/
 
 ---
 
-## 8. Notes
+## 11. Notes
 
 * Only configuration files are tracked — no binaries or installed software.
 * All changes should be made inside `~/dotfiles`, not directly in `~/.config`.
 * Symlinks ensure all systems stay in sync.
+* Fish plugins are managed via `fisher` and restored using `fisher update`.
 
 ---
