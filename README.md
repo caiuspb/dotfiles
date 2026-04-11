@@ -1,160 +1,125 @@
-# Dotfiles Setup Guide
+Dotfiles Setup Guide
 
-This repository contains my personal configuration files (dotfiles), managed with **GNU Stow** and **Git**.
+This repository contains my personal configuration files (dotfiles), managed with GNU Stow and Git.
 
 The goal is to quickly reproduce the same environment across multiple systems.
 
----
-
-## 1. Clone the Repository
+1. Clone the Repository
 
 Clone the dotfiles into your home directory:
 
-```bash
 git clone git@github.com:caiuspb/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-```
+2. Set Fish as Default Shell
 
----
+After installing fish, set it as your default shell:
 
-## 2. Set Fish as Default Shell
-
-After installing `fish`, set it as your default shell:
-
-```bash
 chsh -s $(which fish)
-```
 
 Log out and back in (or restart your session) for the change to take effect.
 
----
-
-## 3. Apply the Configuration with Stow
+3. Apply the Configuration with Stow
 
 From inside the repository, run:
 
-```bash
 stow .
-```
 
-This will create symbolic links from the repository into your home directory (e.g. `~/.config/...`).
+This will create symbolic links from the repository into your home directory (e.g. ~/.config/...).
 
----
+4. Handling Existing Files
 
-## 4. Handling Existing Files
+If configuration files already exist on the system, stow will refuse to overwrite them.
 
-If configuration files already exist on the system, `stow` will refuse to overwrite them.
-
-### Option A (recommended): Backup existing files
-
-```bash
-mkdir -p ~/.config_backup
-
-mv ~/.config/fish ~/.config_backup/ 2>/dev/null
-mv ~/.config/starship.toml ~/.config_backup/ 2>/dev/null
-```
-
-Then run:
-
-```bash
-stow .
-```
-
----
-
-### Option B: Adopt existing files into the repo
-
-```bash
+Adopt existing files (recommended)
 stow --adopt .
-```
 
-This moves existing files into the repository and replaces them with symlinks.
+This will:
 
----
+move existing config files into the repository
+replace them with symlinks
 
-## 5. Install Fisher (Fish Plugin Manager)
+Afterward, commit the adopted files:
+
+git add .
+git commit -m "adopt existing config"
+5. Install Fisher (Fish Plugin Manager)
 
 Start a fish shell:
 
-```bash
 fish
-```
 
-Then install **fisher**:
+Then install fisher:
 
-```fish
 curl -sL https://git.io/fisher | source
-```
+6. Install Fish Plugins
 
----
+Install all plugins defined in your dotfiles:
 
-## 6. Install Fish Plugins
-
-Once `fisher` is installed, install all plugins defined in your dotfiles:
-
-```fish
 fisher update
-```
 
-This reads `~/.config/fish/fish_plugins` and installs everything automatically.
+This reads ~/.config/fish/fish_plugins and installs everything automatically.
 
----
+7. Install and Enable Starship
 
-## 7. Verify Setup
+Ensure starship is installed on the system.
+
+Fish is configured to load it via:
+
+starship init fish | source
+
+The configuration file is located at:
+
+~/.config/starship.toml
+
+After installation, restart your shell:
+
+exec fish
+8. Install and Enable Zoxide
+
+Ensure zoxide is installed on the system.
+
+Fish is configured to initialize it via:
+
+zoxide init fish | source
+
+After installation, restart your shell:
+
+exec fish
+
+You can then use:
+
+z <directory>
+zi
+9. Verify Setup
 
 Check that symlinks were created correctly:
 
-```bash
 ls -l ~/.config/fish
 ls -l ~/.config/starship.toml
-```
 
-You should see links pointing to `~/dotfiles/...`.
+You should see links pointing to ~/dotfiles/....
 
----
-
-## 8. Post-Setup
-
-Restart your shell:
-
-```bash
-exec fish
-```
-
----
-
-## 9. Updating Dotfiles
+10. Updating Dotfiles
 
 To update your configuration on any system:
 
-```bash
 cd ~/dotfiles
 git pull
 stow .
-```
-
----
-
-## 10. Structure
+11. Structure
 
 Example layout:
 
-```text
 dotfiles/
 └── .config/
     ├── fish/
     │   ├── config.fish
     │   └── fish_plugins
     └── starship.toml
-```
-
----
-
-## 11. Notes
-
-* Only configuration files are tracked — no binaries or installed software.
-* All changes should be made inside `~/dotfiles`, not directly in `~/.config`.
-* Symlinks ensure all systems stay in sync.
-* Fish plugins are managed via `fisher` and restored using `fisher update`.
-
----
+12. Notes
+Only configuration files are tracked — no binaries or installed software.
+All changes should be made inside ~/dotfiles, not directly in ~/.config.
+Symlinks ensure all systems stay in sync.
+Fish plugins are managed via fisher and restored using fisher update.
+Starship is configured via starship.toml.
+Zoxide provides smart directory navigation (z, zi).
