@@ -19,3 +19,6 @@ function l
 end
 
 starship init fish | source
+
+# opencode
+fish_add_path /home/caius/.opencode/bin
