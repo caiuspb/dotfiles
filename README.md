@@ -13,6 +13,7 @@ Install the following packages before applying the dotfiles:
 - `zoxide` for smart directory navigation
 - `curl` to install Fisher
 - an OpenSSH client because Fish starts `ssh-agent` when needed
+- [OpenCode](https://opencode.ai) to use the included agents and skills
 
 Fisher is installed after the configuration has been linked in step 5.
 
@@ -133,6 +134,35 @@ z <directory>
 zi
 ```
 
+### 7. Configure OpenCode Secrets
+
+Stow links the OpenCode configuration to `~/.config/opencode`. Agents are in
+`agent/`, and reusable skills are in `skills/<name>/SKILL.md`.
+
+Create a local secret file from the tracked template and fill in only the keys
+you need:
+
+```bash
+cp ~/.config/opencode/.env.example ~/.config/opencode/.env
+chmod 600 ~/.config/opencode/.env
+```
+
+`.env` files are intentionally ignored by Git and are not loaded by OpenCode
+automatically. Export the required variables in the environment that starts
+OpenCode. For example, in Fish:
+
+```fish
+set -gx ANTHROPIC_API_KEY your-api-key
+opencode
+```
+
+The included `example-reviewer` agent is a read-only review subagent. Invoke
+it with `@example-reviewer`. `example-skill` documents the required structure
+for new skills; copy its directory and customize `SKILL.md`.
+
+Quit and restart OpenCode after changing `opencode.json`, an agent, or a skill;
+OpenCode reads these files only at startup.
+
 ## Verification
 
 Check that the symbolic links were created correctly:
@@ -140,6 +170,7 @@ Check that the symbolic links were created correctly:
 ```bash
 ls -l ~/.config/fish
 ls -l ~/.config/starship.toml
+ls -l ~/.config/opencode
 ```
 
 They should point into `~/dotfiles`.
