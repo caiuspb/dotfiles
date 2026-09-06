@@ -70,7 +70,7 @@ cd ~/dotfiles
 From inside the repository, run:
 
 ```bash
-stow .
+stow --ignore='^agents$' .
 ```
 
 This creates symbolic links from the repository into your home directory, for example under `~/.config`.
@@ -80,7 +80,7 @@ This creates symbolic links from the repository into your home directory, for ex
 If configuration files already exist, Stow refuses to overwrite them. Review and move them manually, or adopt them into this repository:
 
 ```bash
-stow --adopt .
+stow --ignore='^agents$' --adopt .
 ```
 
 `--adopt` moves existing configuration files into the repository and replaces them with symbolic links. Review the resulting changes before committing them:
@@ -134,10 +134,29 @@ z <directory>
 zi
 ```
 
-### 7. Configure OpenCode Secrets
+### 7. Install Agent Skills
 
-Stow links the OpenCode configuration to `~/.config/opencode`. Agents are in
-`agent/`, and reusable skills are in `skills/<name>/SKILL.md`.
+`install.sh` links every skill with a `SKILL.md` from `agents/skills/` into
+`~/.agents/skills/`. This is a shared personal-skill location supported by
+both [OpenCode](https://opencode.ai) and [VS Code](https://code.visualstudio.com/docs/copilot/customization/agent-skills).
+
+If you use Stow without `install.sh`, create the same links manually:
+
+```bash
+mkdir -p ~/.agents/skills
+for skill in ~/dotfiles/agents/skills/*; do
+  [ -d "$skill" ] && ln -sfn "$skill" ~/.agents/skills/"$(basename "$skill")"
+done
+```
+
+Restart OpenCode and VS Code after adding or changing a skill so they discover
+the updated files.
+
+### 8. Configure OpenCode Secrets
+
+Stow links the OpenCode configuration to `~/.config/opencode`. Its bundled
+agents are in `agent/`, and its bundled skills are in `skills/<name>/SKILL.md`.
+Shared skills from `agents/skills/` are linked separately in step 7.
 
 Create a local secret file from the tracked template and fill in only the keys
 you need:
@@ -148,13 +167,17 @@ chmod 600 ~/.config/opencode/.env
 ```
 
 `.env` files are intentionally ignored by Git and are not loaded by OpenCode
-automatically. Export the required variables in the environment that starts
-OpenCode. For example, in Fish:
+automatically. The included Fish `opencode` function loads this file only for
+the OpenCode process and its MCP servers. For example, in Fish:
 
 ```fish
 set -gx ANTHROPIC_API_KEY your-api-key
 opencode
 ```
+
+The configured Home Assistant MCP endpoint does not require additional
+authentication. The server can control devices and change Home Assistant
+configuration; retain OpenCode's permission prompts for write operations.
 
 The included `example-reviewer` agent is a read-only review subagent. Invoke
 it with `@example-reviewer`. `example-skill` documents the required structure
@@ -182,7 +205,7 @@ Update the repository and reapply the links:
 ```bash
 cd ~/dotfiles
 git pull
-stow .
+stow --ignore='^agents$' .
 ```
 
 ## Notes

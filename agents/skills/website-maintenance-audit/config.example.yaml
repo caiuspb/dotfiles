@@ -1,0 +1,27 @@
+site:
+  name: "KBM Rechtsanwälte"
+  url: "https://kbm-rechtsanwaelte.de/"
+
+report:
+  template: "assets/audit-template.docx"
+  output_dir: "reports"
+
+crawl:
+  max_pages: 100
+  timeout_seconds: 15
+  check_external_links: true
+
+visual:
+  enabled: true
+  representative_pages:
+    - "/"
+    - "/kontakt"
+    - "/team"
+  viewports:
+    desktop: [1440, 1000]
+    mobile: [390, 844]
+    tablet_portrait: [820, 1180]
+    tablet_landscape: [1180, 820]
+
+ssl:
+  warning_days_before_expiry: 30

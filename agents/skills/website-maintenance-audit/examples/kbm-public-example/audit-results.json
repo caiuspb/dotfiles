@@ -1,0 +1,22 @@
+{
+  "site": {"name": "KBM Rechtsanwälte", "url": "https://kbm-rechtsanwaelte.de/"},
+  "audit_date": "06.09.2026",
+  "audit_month": "September 2026",
+  "pages_crawled": 5,
+  "results": [
+    {"id":"navigation","label":"Buttons / Navigation","status":"pass","method":"web-public","summary":"Hauptnavigation und zentrale Seiten sind öffentlich erreichbar.","details":[],"evidence":[]},
+    {"id":"links","label":"Links","status":"warning","method":"web-public","summary":"Zentrale interne Links wurden stichprobenartig geprüft; kein vollständiger Crawl in dieser Laufzeitumgebung möglich.","details":[],"evidence":[]},
+    {"id":"impressum","label":"Impressum vorhanden","status":"pass","method":"web-public","summary":"Impressum ist öffentlich erreichbar.","details":[],"evidence":[]},
+    {"id":"datenschutz","label":"Datenschutz vorhanden","status":"pass","method":"web-public","summary":"Datenschutzseite ist über die öffentliche Navigation verlinkt.","details":[],"evidence":[]},
+    {"id":"google_fonts","label":"Google Fonts local Hosting","status":"manual","method":"web-public","summary":"Für eine belastbare Aussage ist eine Browser-Netzwerkprüfung erforderlich.","details":[],"evidence":[]},
+    {"id":"wordpress","label":"WordPress","status":"not_verifiable","method":"web-public","summary":"WordPress-Version öffentlich nicht zuverlässig verifiziert.","details":[],"evidence":[]},
+    {"id":"php","label":"PHP","status":"not_verifiable","method":"web-public","summary":"PHP-Version öffentlich nicht zuverlässig verifiziert; Site Health, WP-CLI oder Hosting-Zugang erforderlich.","details":[],"evidence":[]},
+    {"id":"desktop","label":"Desktop","status":"manual","method":"visual","summary":"Playwright-Screenshotprüfung muss auf einem Rechner mit Browser-/Netzwerkzugriff laufen.","details":[],"evidence":[]},
+    {"id":"mobile","label":"Mobile","status":"manual","method":"visual","summary":"Playwright-Screenshotprüfung muss auf einem Rechner mit Browser-/Netzwerkzugriff laufen.","details":[],"evidence":[]},
+    {"id":"tablet_landscape","label":"IPad Landscape","status":"manual","method":"visual","summary":"Playwright-Screenshotprüfung muss auf einem Rechner mit Browser-/Netzwerkzugriff laufen.","details":[],"evidence":[]},
+    {"id":"tablet_portrait","label":"IPad Portrait","status":"manual","method":"visual","summary":"Playwright-Screenshotprüfung muss auf einem Rechner mit Browser-/Netzwerkzugriff laufen.","details":[],"evidence":[]},
+    {"id":"dsgvo_check","label":"Dr. DSGVO Webseiten Check","status":"manual","method":"manual","summary":"Externer Check nicht automatisiert ausgeführt.","details":[],"evidence":[]},
+    {"id":"backup","label":"Backup","status":"not_verifiable","method":"authenticated","summary":"Backup ist ohne Hosting-/WordPress-Zugriff nicht verifizierbar.","details":[],"evidence":[]},
+    {"id":"ssl","label":"SSL-Gültigkeitsprüfung","status":"pass","method":"web-public","summary":"Website ist aktuell erfolgreich über HTTPS erreichbar; detaillierte Zertifikatsrestlaufzeit wird vom lokalen Audit-Skript ermittelt.","details":[],"evidence":[]}
+  ]
+}

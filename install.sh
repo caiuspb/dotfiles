@@ -35,10 +35,36 @@ install_dependencies() {
     fi
 }
 
+install_agent_skills() {
+    local skills_dir="$repo_dir/agents/skills"
+    local target_dir="$HOME/.agents/skills"
+    local skill_dir
+    local target
+
+    [[ -d "$skills_dir" ]] || return
+
+    mkdir -p -- "$target_dir"
+
+    for skill_dir in "$skills_dir"/*; do
+        [[ -d "$skill_dir" && -f "$skill_dir/SKILL.md" ]] || continue
+
+        target="$target_dir/$(basename -- "$skill_dir")"
+        if [[ -e "$target" || -L "$target" ]]; then
+            if [[ ! "$target" -ef "$skill_dir" ]]; then
+                printf 'Error: refusing to replace existing skill: %s\n' "$target" >&2
+                exit 1
+            fi
+        fi
+
+        ln -sfnT -- "$skill_dir" "$target"
+    done
+}
+
 install_dependencies
 
 cd -- "$repo_dir"
-stow --restow --target="$HOME" .
+stow --restow --ignore='^agents$' --target="$HOME" .
+install_agent_skills
 
 curl --fail --silent --show-error --location \
     https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish \
