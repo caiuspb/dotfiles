@@ -1,4 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "share": "disabled"
+  "share": "disabled",
+  "mcp": {
+    "home-assistant": {
+      "type": "remote",
+      "url": "http://192.168.178.3:8086/mcp"
+    }
+  }
 }
