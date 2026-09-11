@@ -13,6 +13,12 @@ zoxide init fish | source
 #bind \e\[A history-search-backward
 #bind \e\[B history-search-forward
 
+# Datei-Listing mit eza und Icons wie in der CachyOS-Konfiguration
+alias ls='eza -al --color=always --group-directories-first --icons=always'
+alias la='eza -a --color=always --group-directories-first --icons=always'
+alias ll='eza -l --color=always --group-directories-first --icons=always'
+alias lt='eza -aT --color=always --group-directories-first --icons=always'
+
 # alias l auf ls -ahl
 function l
     ls -ahl $argv
