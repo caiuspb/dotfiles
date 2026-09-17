@@ -75,12 +75,10 @@ def find_legal(pages, terms, label, id_):
     return result(id_,label,"fail","automatic","Keine eindeutig erreichbare passende Seite im Crawl gefunden.")
 
 def detect_versions(pages):
-    wp=[]; php=[]
+    wp=[]
     for url,data in pages.items():
         html=data.get("html","")
         for m in re.findall(r'<meta[^>]+name=["\']generator["\'][^>]+content=["\']WordPress\s+([^"\']+)', html, flags=re.I): wp.append(m.strip())
-        for m in re.findall(r'[?&]ver=(\d+\.\d+(?:\.\d+)?)', html):
-            if "wp-" in html.lower(): wp.append(m)
     wpv=max(wp, key=len) if wp else None
     return wpv, None
 
@@ -159,7 +157,7 @@ def main():
     results.append(find_legal(pages,["datenschutz","privacy"],"Datenschutz vorhanden","datenschutz"))
     results.append(google_fonts(pages))
     wpv,_=detect_versions(pages)
-    results.append(result("wordpress","WordPress","pass" if wpv else "not_verifiable","automatic",f"Öffentlich erkannte WordPress-Version: {wpv}" if wpv else "WordPress-Version öffentlich nicht zuverlässig erkennbar."))
+    results.append(result("wordpress","WordPress","warning" if wpv else "not_verifiable","automatic",f"Öffentlicher WordPress-Fingerprint erkannt: {wpv}; Version ohne authentifizierte Quelle nicht verlässlich verifiziert." if wpv else "WordPress-Version öffentlich nicht zuverlässig erkennbar."))
     results.append(result("php","PHP","not_verifiable","automatic","PHP-Version wird ohne serverseitige/authentifizierte Quelle nicht geraten. Prüfe WP Site Health, WP-CLI oder Hosting-API."))
     results.extend(visual_checks(cfg,out))
     results.append(result("dsgvo_check","Dr. DSGVO Webseiten Check","manual","manual","Externer Dienst; manuelle Ausführung oder dedizierte Integration erforderlich."))

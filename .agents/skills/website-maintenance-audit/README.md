@@ -22,13 +22,16 @@ playwright install chromium
 cp config.example.yaml config.yaml
 ```
 
-Dann `config.yaml` pro Kunde anpassen und ausführen:
+Dann `config.yaml` pro Kunde anpassen. Den Audit aus dem geöffneten Workspace-Ordner starten:
 
 ```bash
-./scripts/run_audit.sh config.yaml
+~/.agents/skills/website-maintenance-audit/scripts/run_audit.sh \
+	~/.agents/skills/website-maintenance-audit/config.yaml
 ```
 
-Ergebnisse landen unter `reports/<timestamp>/`.
+`run_audit.sh` verwendet automatisch `.venv/bin/python3`, wenn die lokale virtuelle Umgebung vorhanden ist. Eine Aktivierung der venv oder ein `PATH`-Prefix ist für den Auditlauf nicht erforderlich.
+
+Ergebnisse landen standardmäßig unter `reports/<timestamp>/` im aktuellen Aufrufverzeichnis. Mit `AUDIT_OUTPUT_DIR=/pfad/zum/ziel` kann ein anderes Zielverzeichnis gesetzt werden.
 
 ## Was ohne Login läuft
 
